@@ -13,7 +13,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-NVIDIA_API_KEY = "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"  
+NVIDIA_API_KEY = os.getenv("NVIDIA_API_KEY", "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")  
 
 class StartupData(BaseModel):
     name: str = ""

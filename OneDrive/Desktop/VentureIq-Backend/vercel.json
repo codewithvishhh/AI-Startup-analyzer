@@ -1,0 +1,5 @@
+{
+  "buildCommand": "pip install -r requirements.txt",
+  "framework": "fastapi",
+  "python": "3.11"
+}
