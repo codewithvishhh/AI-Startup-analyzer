@@ -3,7 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import requests
 import os
-from asgiref.sync import sync_to_async
+import json
+import re
 
 app = FastAPI()
 
@@ -76,27 +77,35 @@ Return this exact JSON:
   "actionItems": ["improvement1", "improvement2", "improvement3"]
 }}"""
 
-    response = requests.post(
-        "https://integrate.api.nvidia.com/v1/chat/completions",
-        headers={
-            "Authorization": f"Bearer {NVIDIA_API_KEY}",
-            "Content-Type": "application/json"
-        },
-        json={
-            "model": "meta/llama-3.1-70b-instruct",
-            "messages": [{"role": "user", "content": prompt}],
-            "max_tokens": 1500,
-            "temperature": 0.7
-        }
-    )
-
-    result = response.json()
-    text = result["choices"][0]["message"]["content"]
-    
-    import json, re
-    clean = re.sub(r'```json|```', '', text).strip()
-    return json.loads(clean)
+    try:
+        response = requests.post(
+            "https://integrate.api.nvidia.com/v1/chat/completions",
+            headers={
+                "Authorization": f"Bearer {NVIDIA_API_KEY}",
+                "Content-Type": "application/json"
+            },
+            json={
+                "model": "meta/llama-3.1-70b-instruct",
+                "messages": [{"role": "user", "content": prompt}],
+                "max_tokens": 1500,
+                "temperature": 0.7
+            },
+            timeout=30
+        )
+        
+        response.raise_for_status()
+        result = response.json()
+        text = result["choices"][0]["message"]["content"]
+        
+        clean = re.sub(r'```json|```', '', text).strip()
+        return json.loads(clean)
+    except Exception as e:
+        return {"error": str(e)}
 
 @app.get("/api")
 def root():
     return {"status": "AI Startup Analyzer Backend Running!"}
+
+@app.get("/")
+def health():
+    return {"status": "ok"}
