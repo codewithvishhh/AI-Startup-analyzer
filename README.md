@@ -1,69 +1,109 @@
 # AI Startup Analyzer
 
-An intelligent startup analysis platform powered by FastAPI and NVIDIA LLM that provides comprehensive venture capital assessments.
+## Project Structure
+
+```
+ai-startup-analyzer/
+├── frontend/          ← React/TypeScript code
+│   ├── package.json
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── AiVerdict.tsx
+│   │   │   ├── CompetitorTable.tsx
+│   │   │   ├── FundingBreakdown.tsx
+│   │   │   ├── GridBackground.tsx
+│   │   │   ├── LoadingScreen.tsx
+│   │   │   ├── MetricCard.tsx
+│   │   │   ├── NavLink.tsx
+│   │   │   ├── Navbar.tsx
+│   │   │   ├── ScoreRing.tsx
+│   │   │   ├── StartupForm.tsx
+│   │   │   ├── SwotAnalysis.tsx
+│   │   │   └── VolatilityChart.tsx
+│   │   └── ...
+│   └── ...
+├── backend/           ← Python/FastAPI code
+│   ├── main.py
+│   ├── requirements.txt
+│   ├── Procfile
+│   └── ...
+├── README.md
+└── .gitignore
+```
+
+## Setup Instructions
+
+### Backend Setup
+
+1. Navigate to the backend directory:
+```bash
+cd backend
+```
+
+2. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+3. Run the server:
+```bash
+uvicorn main:app --host 0.0.0.0 --port 8000
+```
+
+### Frontend Setup
+
+1. Navigate to the frontend directory:
+```bash
+cd frontend
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Start the development server:
+```bash
+npm run dev
+```
 
 ## Features
 
-- **Startup Analysis**: Detailed analysis of startup potential using AI
-- **Scoring System**: Multiple metrics including market opportunity, funding readiness, competitor threats
-- **SWOT Analysis**: Strengths, weaknesses, opportunities, and threats assessment
-- **Competitor Analysis**: Automatic competitor identification and threat assessment
-- **Investor Appeal**: Rating for investment potential
+- **AI-Powered Analysis**: Comprehensive startup evaluation using AI
+- **SWOT Analysis**: Strengths, Weaknesses, Opportunities, and Threats breakdown
+- **Competitor Analysis**: Market share and threat level assessment
+- **Funding Readiness**: Visual metrics for funding preparation
+- **Risk Assessment**: Volatility trends and risk analysis
+- **Interactive Dashboard**: Beautiful, responsive UI with animations
 
 ## Technology Stack
 
-- **Framework**: FastAPI
-- **Server**: Uvicorn
-- **Validation**: Pydantic
-- **API**: NVIDIA LLM Integration (Llama 3.1-70B)
+### Frontend
+- React 18+
+- TypeScript
+- Tailwind CSS
+- Framer Motion (animations)
+- Recharts (data visualization)
+- Lucide React (icons)
 
-## Setup
+### Backend
+- FastAPI
+- Pydantic
+- Uvicorn
+- Python 3.8+
 
-1. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+## Environment Variables
 
-2. Set up environment variables in `.env`:
-   ```
-   NVIDIA_API_KEY=your_key_here
-   ```
-
-3. Run the server:
-   ```bash
-   uvicorn main:app --reload
-   ```
-
-## API Endpoints
-
-### POST /analyze
-Analyzes a startup and returns detailed analysis metrics.
-
-**Request Body:**
-```json
-{
-  "name": "Startup Name",
-  "industry": "Tech",
-  "stage": "Series A",
-  "description": "Brief description",
-  "targetMarket": "Global",
-  "monthlyBudget": 50000
-}
+Create a `.env` file in the backend directory:
+```
+DATABASE_URL=your_database_url
+API_KEY=your_api_key
 ```
 
-### GET /
-Health check endpoint.
+## Contributing
 
-## Response Format
+Feel free to submit issues and enhancement requests!
 
-Returns a JSON object with:
-- `overallScore`: Overall investment potential (0-100)
-- `marketOpportunity`: Market viability score
-- `volatilityIndex`: Risk assessment
-- `fundingReadiness`: Funding preparation score
-- `competitorThreat`: Competitive landscape analysis
-- `swot`: SWOT analysis breakdown
-- `funding`: Detailed scoring metrics
-- `verdict`: Expert analysis summary
-- `investorAppeal`: Investment recommendation
-- `actionItems`: Improvement suggestions
+## License
+
+MIT License - feel free to use this project for your own purposes.
