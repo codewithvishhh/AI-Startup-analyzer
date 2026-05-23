@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import requests
 import os
+from asgiref.sync import sync_to_async
 
 app = FastAPI()
 
@@ -34,7 +35,7 @@ class StartupData(BaseModel):
                 data['monthlyBudget'] = 0
         super().__init__(**data)
 
-@app.post("/analyze")
+@app.post("/api/analyze")
 async def analyze_startup(data: StartupData):
     prompt = f"""You are an expert startup analyst and venture capitalist. Analyze this startup and return ONLY a JSON object, no extra text, no markdown.
 
@@ -96,6 +97,6 @@ Return this exact JSON:
     clean = re.sub(r'```json|```', '', text).strip()
     return json.loads(clean)
 
-@app.get("/")
+@app.get("/api")
 def root():
     return {"status": "AI Startup Analyzer Backend Running!"}
