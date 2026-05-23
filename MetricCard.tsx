@@ -26,7 +26,7 @@ const MetricCard = ({ icon: Icon, title, value, subtitle, delay = 0, tooltip }: 
         <span className="text-sm font-medium text-muted-foreground">{title}</span>
       </div>
       <div className="text-3xl font-bold font-mono text-foreground">
-        {typeof value === "number" ? value : value}
+        {value}
       </div>
       {subtitle && (
         <span className="mt-1 inline-block rounded-md bg-muted/50 px-2 py-0.5 text-xs font-medium text-muted-foreground">
